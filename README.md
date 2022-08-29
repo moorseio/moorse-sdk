@@ -42,7 +42,12 @@ O moorse sdk surge como solução ao problema que muitos desenvolvedores enfrent
         3. [totalMessagesTimeline](#453-totalmessagestimeline)
     6. [Métodos de Sms](#46-métodos-de-sms)
         1. [sendSms](#461-sendsms)
-
+    7. [Métodos de grupos](#47-métodos-de-grupos)
+        1. [createGroup](#471-creategroup)
+        2. [deleteGroup](#472-deletegroup)
+        3. [sendFileOnGroup](#473-sendfileongroup)
+        4. [sendTextOnGroup](#474-sendtextongroup)
+        5. [updateGroup](#475-updategroup)
 
 
 ## 1. Início rápido
@@ -914,6 +919,151 @@ moorse.sendSms({
     to: "16985498456",
     body: "olá"
 });
+```
+**Objeto do retorno**: 
+```typescript
+{
+    data: any
+    errors: any
+    links: any
+}
+```
+
+### 4.7. Métodos de grupos
+
+#### 4.7.1 createGroup
+
+**Definição**:
+```typescript
+createGroup(args: CreateGroupObject):Promise<MoorseResponse>
+```
+**CreateGroupObject**
+```typescript
+type CreateGroupObject = {
+    name: string,
+    description?: string,
+    integrationId: string,
+    contacts: string[]
+}
+```
+**Exemplo**:
+```typescript
+await moorse.createGroup({
+    contacts: ["5583996833634"],
+    integrationId: "d18f348b-381d-42b6-8fa8-960bc96786c0",
+    name: "grupo de teste",
+    description: "descricao de teste"
+});
+```
+**Objeto do retorno**: 
+```typescript
+{
+    data: any
+    errors: any
+    links: any
+}
+```
+
+#### 4.7.2 deleteGroup
+
+**Definição**:
+```typescript
+deleteGroup(groupId: string):Promise<MoorseResponse>
+```
+**Exemplo**:
+```typescript
+moorse.deleteGroup("aeb7bcfe-635e-4b3a-9093-b9355fa75");
+```
+**Objeto do retorno**: 
+```typescript
+{
+    data: any
+    errors: any
+    links: any
+}
+```
+
+#### 4.7.3 updateGroup
+
+**Definição**:
+```typescript
+updateGroup(groupId: string, args: UpdateGroupObject):Promise<MoorseResponse>
+```
+**UpdateGroupObject**
+```typescript
+type UpdateGroupObject = {
+    name: string,
+    description: string,
+}
+```
+**Exemplo**:
+```typescript
+moorse.updateGroup("aeb7bcfe-635e-4b3a-9093-b9355fa75",{
+    name: "nome atualizado",
+    description: "descrição atualizada"
+});
+```
+**Objeto do retorno**: 
+```typescript
+{
+    data: any
+    errors: any
+    links: any
+}
+```
+
+#### 4.7.4 sendTextOnGroup
+
+**Definição**:
+```typescript
+sendTextOnGroup(args: SendTextOnGroupObject):Promise<MoorseResponse>
+```
+**SendTextOnGroupObject**
+```typescript
+type SendTextOnGroupObject = {
+    groupId: string,
+    body: string
+}
+```
+**Exemplo**:
+```typescript
+moorse.sendTextOnGroup({
+    groupId: "aeb7bcfe-635e-4b3a-9093-b9355fa75",
+    body: "mensagem de teste"
+});
+```
+**Objeto do retorno**: 
+```typescript
+{
+    data: any
+    errors: any
+    links: any
+}
+```
+
+#### 4.7.5 sendFileOnGroup
+
+**Definição**:
+```typescript
+sendFileOnGroup(args: SendFileOnGroupObject):Promise<MoorseResponse>
+```
+**SendFileOnGroupObject**
+```typescript
+type SendFileOnGroupObject = {
+    groupId: string,
+    body: string,
+    filename: string,
+    caption: string
+}
+```
+**Exemplo**:
+```typescript
+moorse.sendFileOnGroup({
+    groupId: "aeb7bafe-625e-4b3a-9093-b9355739fa75",
+    filename: "arquivoTeste.pdf",
+    body: "arquivo corrompido",
+    caption: "legenda do arquivo"
+})
 ```
 **Objeto do retorno**: 
 ```typescript
